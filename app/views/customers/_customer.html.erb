@@ -1,0 +1,10 @@
+<div class="customer">
+  <% if customer.image.attached? %>
+    <%= image_tag url_for(customer.image), width: 150, alt: customer.full_name %>
+  <% end %>
+
+  <h3><%= customer.full_name %></h3>
+  <p>Phone: <%= customer.phone_number %></p>
+  <p>Email: <%= customer.email_address.presence || "No email" %></p>
+  <p>Notes: <%= customer.notes %></p>
+</div>
