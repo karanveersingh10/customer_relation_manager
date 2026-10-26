@@ -1,80 +1,63 @@
+cd ~/customer_relation_manager
 
+cat > README.md <<'EOF'
 # Customer Relationship Manager (CRM)
 
-## Customer Model
-`app/models/customer.rb`
-
-```ruby
-class Customer < ApplicationRecord
-  has_one_attached :image # Allows one image per customer
-  validates :full_name, presence: true # Name is required
-end
-```
-
-## Customers Controller
-`app/controllers/customers_controller.rb`
-
-```ruby
-class CustomersController < ApplicationController
-  def index
-    @customers = Customer.all # Get all customers
-  end
-
-  def alphabetized
-    @customers = Customer.order(:full_name) # Sort by name
-  end
-
-  def missing_email
-    @customers = Customer.where(email_address: [nil, ""]) # Find missing emails
-  end
-end
-```
-
-## Routes
-`config/routes.rb`
-
-```ruby
-root "customers#index" # Home page
-get "customers/alphabetized", to: "customers#alphabetized"
-get "customers/missing_email", to: "customers#missing_email"
-```
-
-## ActiveAdmin
-`app/admin/customers.rb`
-
-```ruby
-ActiveAdmin.register Customer do
-  # Allow these fields to be saved
-  permit_params :full_name, :phone_number, :email_address, :notes, :image
-end
-```
-
-## Run the Project
+## Run the Application
 
 ```bash
+cd ~/customer_relation_manager
 bundle install
 bin/rails db:migrate
 bin/rails server
-```
 
-## Git and GitHub Commands
+Main page: http://localhost:3000
+Admin page: http://localhost:3000/admin
 
-```bash
-git status # Check project changes
-git add . # Stage files
-git status # Review staged files
-git commit -m "Add CRM project and README" # Save changes
-git push -u origin main # Upload to GitHub
-```
+Rails Commands
 
-## Check GitHub Connection
+bin/rails routes       # List routes
+bin/rails console      # Open Rails console
+bin/rails db:migrate   # Run migrations
+bin/rails server       # Start application
+bin/rails test         # Run tests
 
-```bash
-git remote -v # Show connected repository
-```
+GitHub Repository
+https://github.com/karanveersingh10/customer_relation_manager
+Git Commands
+git remote -v          # Show GitHub connection
+git status             # Check changes
+git branch             # Show current branch
+git add .              # Stage changes
+git status             # Review staged files
+git commit -m "Update CRM project"  # Save commit
+git push               # Upload to GitHub
 
-If no remote exists, create an empty repository on GitHub and connect it:
 
-```bash
+Connect a New Repository
+Use only if no remote is configured.
 git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
-```
+git branch -M main
+git push -u origin main
+
+
+Replace the example URL with your actual repository URL.
+Future Updates
+git add .
+git commit -m "Describe your changes"
+git push
+
+
+Security
+Do not upload passwords, access tokens, config/master.key,
+.env files, or private customer information.
+EOF
+
+### Upload the updated README
+
+After the command finishes, run:
+
+```bash
+git add README.md
+git commit -m "Update README commands"
+git push
